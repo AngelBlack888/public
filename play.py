@@ -1,8 +1,8 @@
-# игра Colliding Balls версия 0.5 от 5 мая 2016
+# пїЅпїЅпїЅпїЅ Colliding Balls пїЅпїЅпїЅпїЅпїЅпїЅ 0.5 пїЅпїЅ 5 пїЅпїЅпїЅ 2016
 import tkinter
 import random
 
-# константы
+# пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 WIDTH = 540
 HEIGHT = 480
 BG_COLOR = 'white'
@@ -19,7 +19,7 @@ INIT_DY = 1
 ZERO = 0
 
 
-# класс шарика
+# пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 class Ball():
     def __init__(self, x, y, r, color, dx=0, dy=0):
         self.x = x
@@ -43,20 +43,20 @@ class Ball():
         return (a * a + b * b) ** 0.5 <= self.r + ball.r
 
     def move(self):
-        # столкновение со стенками
+        # пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if (self.x + self.r + self.dx >= WIDTH) or (self.x - self.r + self.dx <= ZERO):
             self.dx = -self.dx
         if (self.y + self.r + self.dy >= HEIGHT) or (self.y - self.r + self.dy <= ZERO):
             self.dy = -self.dy
-        # столкновение с другими шарами
+        # пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         for ball in balls:
             if self.is_collision(ball):
-                if ball.color != BAD_COLOR:  # не опасный шар
+                if ball.color != BAD_COLOR:  # пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
                     ball.hide()
                     balls.remove(ball)
                     self.dx = -self.dx
                     self.dy = -self.dy
-                else:  # опасный шар
+                else:  # пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
                     self.dx = self.dy = 0
         self.hide()
         self.x += self.dx
@@ -65,30 +65,30 @@ class Ball():
             self.draw()
 
 
-# обрабатываем события от мыши
+# пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ
 def mouse_click(event):
     global main_ball
-    if event.num == 1:  # левая кнопка мыши
-        if 'main_ball' not in globals():  # старт
+    if event.num == 1:  # пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+        if 'main_ball' not in globals():  # пїЅпїЅпїЅпїЅпїЅ
             main_ball = Ball(event.x, event.y, MAIN_BALL_RADIUS, MAIN_BALL_COLOR, INIT_DX, INIT_DY)
             if main_ball.x > WIDTH / 2:
                 main_ball.dx = -main_ball.dx
             if main_ball.y > HEIGHT / 2:
                 main_ball.dy = -main_ball.dy
             main_ball.draw()
-        else: # поворот налево
+        else: # пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
             if main_ball.dy * main_ball.dx > 0:
                 main_ball.dy = -main_ball.dy
             else:
                 main_ball.dx = -main_ball.dx
-    elif event.num == 3:  # правая кнопка мыши: поворот направо
+    elif event.num == 3:  # пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if main_ball.dy * main_ball.dx > 0:
             main_ball.dx = -main_ball.dx
         else:
             main_ball.dy = -main_ball.dy
 
 
-# создаем список объектов-шаров
+# пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ-пїЅпїЅпїЅпїЅпїЅ
 def create_list_of_balls(number):
     lst = []
     while len(lst) < number:
@@ -107,7 +107,7 @@ def create_list_of_balls(number):
     return lst
 
 
-# считаем количество плохих шаров
+# пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 def count_bad_balls(list_of_balls):
     result = 0
     for ball in list_of_balls:
@@ -116,7 +116,7 @@ def count_bad_balls(list_of_balls):
     return result
 
 
-# основной цикл игры
+# пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 def main():
     if 'main_ball' in globals():
         main_ball.move()
@@ -128,7 +128,7 @@ def main():
     root.after(DELAY, main)
 
 
-# создаем окно, канву и запускаем цикл игры
+# пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
 root = tkinter.Tk()
 root.title("Colliding Balls")
 canvas = tkinter.Canvas(root, width=WIDTH, height=HEIGHT, bg=BG_COLOR)
@@ -138,7 +138,7 @@ canvas.bind('<Button-2>', mouse_click, '+')
 canvas.bind('<Button-3>', mouse_click, '+')
 balls = create_list_of_balls(NUM_OF_BALLS)
 num_of_bad_balls = count_bad_balls(balls)
-if 'main_ball' in globals():  # для повторных запусков
+if 'main_ball' in globals():  # пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     del main_ball
 main()
 root.mainloop()
